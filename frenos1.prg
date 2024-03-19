@@ -1,6 +1,7 @@
 // Programa   : FRENOS1
 // Fecha/Hora : 24/10/2019 06:29:28
-// Propósito  :
+// Propósito  : Crear registro de productos, precios, marcas y grupos utilizando archivo .CSV convertido desde excel
+// Archivo    : https://github.com/AdaptaProERP/excel/blob/main/productos1.csv
 // Creado Por :
 // Llamado por:
 // Aplicación :
