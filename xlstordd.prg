@@ -18,12 +18,13 @@ PROCE MAIN(cFileXls,cFileDbf,oMeter,oSay,lAuto,nLinIni,nCantRec,nHead,nColGet,lS
            nCantRec:=0 ,;
            aSelect :={},;
            nLinIni :=1 ,;
-           lBrowse :=.T.
+           lBrowse :=.F.
 
     DEFAULT cFileXls:="C:\ahiskel\propietarios.xls"
 
 //   DEFAULT cFileXls:="C:\LIBRODECOMPRAS\librodecompras.xlsx"
 
+   SET DECI TO 6
 
    IF cCodigo<>NIL
 
@@ -41,6 +42,8 @@ PROCE MAIN(cFileXls,cFileDbf,oMeter,oSay,lAuto,nLinIni,nCantRec,nHead,nColGet,lS
 
    ENDIF
 
+   cFileXls:=ALLTRIM(cFileXls)
+
    DEFAULT cFileDbf:=STRTRAN( cFileXls,".xls",".dbf")
 
    IF !FILE(ALLTRIM(cFileXls))
@@ -48,7 +51,10 @@ PROCE MAIN(cFileXls,cFileDbf,oMeter,oSay,lAuto,nLinIni,nCantRec,nHead,nColGet,lS
       RETURN NIL
    ENDIF
 
-   SET DECI TO 6
+   IF "CSV"$UPPER(cFileExt(cFileXls))
+      oTable:=EJECUTAR("CSVTORDD",cFileXls)
+      RETURN oTable
+   ENDIF
 
    IF Empty(aSelect)
       aSelect:=ARRAY(nMaxCol)
@@ -120,7 +126,7 @@ PROCE MAIN(cFileXls,cFileDbf,oMeter,oSay,lAuto,nLinIni,nCantRec,nHead,nColGet,lS
 
    oTable:Gotop()
 
-   IF lBrowse
+   IF lBrowse 
       oTable:Browse()
    ENDIF
 

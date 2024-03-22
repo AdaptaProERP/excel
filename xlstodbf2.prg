@@ -11,7 +11,7 @@
 PROCE MAIN(cFileXls,cFileDbf,oMeter,oSay,lAuto,nLinIni,nCantRec,nHead,nColGet,lStruct,cMaxCol,aSelect,lOut,cCodigo,lBrowse,nMaxCol)
    LOCAL aData  :={},aLine:={}
    LOCAL aFields:={},I,nLin,nCol,cValue,uData,cField,nContar:=0,nLen,nDec,cType
-   LOCAL cFileDbf,cFileXls,cTable,oTable,oExcel,lEmpty:=.F. 
+   LOCAL cTable,oTable,oExcel,lEmpty:=.F. 
    LOCAL nContar:=0,aFieldDbf:={}
 
    DEFAULT nMaxCol :=24,;
@@ -19,13 +19,19 @@ PROCE MAIN(cFileXls,cFileDbf,oMeter,oSay,lAuto,nLinIni,nCantRec,nHead,nColGet,lS
            aSelect :={},;
            nLinIni :=1
 
-   DEFAULT cFileXls:="C:\ahiskel\propietarios.xls"
+//  DEFAULT cFileXls:="C:\ahiskel\propietarios.xls"
+
+   DEFAULT cFileXls:="C:\LIBRODECOMPRAS\librodecompras.xlsx"
+
 
    IF cCodigo<>NIL
 
-     DEFAULT cCodigo:=SQLGET("DPIMPRXLS","IXL_CODIGO","IXL_TABLA"+GetWhere("=","DPCLIENTESREC"))
+     // DEFAULT cCodigo:=SQLGET("DPIMPRXLS","IXL_CODIGO","IXL_TABLA"+GetWhere("=","DPCLIENTESREC"))
 
-     oTable  :=OpenTable("SELECT * FROM DPIMPRXLS WHERE IXL_CODIGO"+GetWhere("=",cCodigo),.T.)
+     oTable  :=OpenTable("SELECT IXL_FILE,IXL_TABLA,IXL_LININI FROM DPIMPRXLS WHERE IXL_CODIGO"+GetWhere("=",cCodigo),.T.)
+
+// ? oTable:RecCount(),oDp:cSql
+
      cFileXls:=ALLTRIM(oTable:IXL_FILE  )
      cTable  :=ALLTRIM(oTable:IXL_TABLA )
      // cMemo   :=ALLTRIM(oTable:IXL_MEMO  )
